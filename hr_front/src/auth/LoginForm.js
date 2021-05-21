@@ -7,6 +7,7 @@ class LoginForm extends Component{
         super(props)
         this.state = {
             token: "",
+            refresh: "",
             ckLogin: false
         }
         if(localStorage.getItem("token")){
@@ -17,9 +18,8 @@ class LoginForm extends Component{
         }
     }
     connAuth = () => {
-        var result = commons.ajaxPostCon({
+        var result = commons.ajaxAuthPostCon({
           url: "http://localhost:8080/token",
-          api_key: '1234',
           id: $(".id").val(),
           pass: $(".pass").val(),
         });
@@ -27,11 +27,13 @@ class LoginForm extends Component{
         if(result.condition){
           var _this = this;
           _this.setState({
-            token: result.token,
+            token: result.accessToken,
+            refresh: result.refreshToken,
             ckLogin: true,
           });
       
           localStorage.setItem("token",_this.state.token);
+          localStorage.setItem("refresh",_this.state.refresh);
           console.log("localStorage ::: " + localStorage.getItem("token"));
           console.log("state token ::: " + _this.state.token);
           console.log("state ckLogin ::: " + _this.state.ckLogin);

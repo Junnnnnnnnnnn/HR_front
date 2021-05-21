@@ -1,13 +1,13 @@
-import React,{Component} from 'react'
-import LoginForm from './LoginForm'
-import SuccessLoginForm from './SuccessLoginForm'
-
+import React,{Component} from 'react';
+import LoginForm from './LoginForm';
+import SuccessLoginForm from './SuccessLoginForm';
+import * as common from '../static/js/commons'
 class LoginView extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            token: localStorage.getItem("token")? localStorage.getItem("token") : ""
+            token: localStorage.getItem("token")? common.refreshAccessToken() : ""
         }
     }
 
@@ -20,7 +20,7 @@ class LoginView extends Component{
     }
 
     render(){
-        console.log("LoginView ::: " + this.state.token);
+        // console.log("LoginView ::: " + this.state.token);
         if(localStorage.getItem("token")){
             return <SuccessLoginForm token={this.state.token} viewChange={this.viewChange}/>
         }else{

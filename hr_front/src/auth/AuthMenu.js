@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import $ from 'jquery'
 import * as commons from '../static/js/commons'
-
-class LoginForm extends Component{
+class AuthMenu extends Component{
     constructor(props){
         super(props)
         this.state = {
             token: "",
             refresh: "",
+            clicked : false,
             ckLogin: false
         }
         if(localStorage.getItem("token")){
@@ -19,7 +19,7 @@ class LoginForm extends Component{
     }
     connAuth = () => {
         var result = commons.ajaxAuthPostCon({
-          url: "http://localhost:8080/token",
+          url: commons.AUTH + "token",
           id: $(".id").val(),
           pass: $(".pass").val(),
         });
@@ -37,9 +37,19 @@ class LoginForm extends Component{
           console.log("localStorage ::: " + localStorage.getItem("token"));
           console.log("state token ::: " + _this.state.token);
           console.log("state ckLogin ::: " + _this.state.ckLogin);
-          this.props.viewChange(true)
+          this.props.viewChange(true);
         }else{
-            alert(result.message);
+          console.log(result);
+          var message = "";
+          if(result.message.pass || result.message.id){
+            // eslint-disable-next-line no-unused-vars
+            for (var [key, value] of Object.entries(result.message)) {
+              message += value+ "\n"
+            }
+            alert(message);
+          }else{
+            alert(result.message);  
+          }
         }
       }
     
@@ -55,28 +65,28 @@ class LoginForm extends Component{
           ckLogin: false,
         });
       }
-      
-    
-    
+      signUpCtrl = () => {
+        this.props.signUpCtrl(true);
+      }
       componentDidMount(){
         $(".login").click(this.connAuth);
         $(".logout").click(this.doLogout);
         $(".status").click(this.loginStatus);
-    
+        $(".signUp").click(this.signUpCtrl);
       }
      
     
       render(){
+        console.log("AuthMenu props :::: " + this.props.ckSignUp);
         return(
-          <div className="loginForm">
+          <div className="authMenu">
             <input type="text" className="id" placeholder="id입력"></input>
             <input type="text" className="pass" placeholder="pass입력"></input>
             <input type="button" className="login" value="로그인" />
-            <input type="button" className="logout" value="로그아웃" />
-            <input type="button" className="status" value="status" />
+            {this.props.ckSignUp ? null: <input type="button" className="signUp" value="회원가입" />}
           </div>
         )
       }
 }
 
-export default LoginForm
+export default AuthMenu

@@ -1,13 +1,13 @@
 import React,{Component} from 'react';
-import LoginForm from './LoginForm';
+import AuthMenu from './AuthMenu';
 import SuccessLoginForm from './SuccessLoginForm';
-import * as common from '../static/js/commons'
+import * as commons from '../static/js/commons'
 class LoginView extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            token: localStorage.getItem("token")? common.refreshAccessToken() : ""
+            token: localStorage.getItem("token")? commons.refreshAccessToken() : "",
         }
     }
 
@@ -20,11 +20,11 @@ class LoginView extends Component{
     }
 
     render(){
-        // console.log("LoginView ::: " + this.state.token);
+        console.log("LOGINVIEW props :::: " + this.props.ckSignUp);
         if(localStorage.getItem("token")){
             return <SuccessLoginForm token={this.state.token} viewChange={this.viewChange}/>
         }else{
-            return <LoginForm token={this.state.token} viewChange={this.viewChange}/>
+            return <AuthMenu token={this.state.token} viewChange={this.viewChange} ckSignUp={this.props.ckSignUp} signUpCtrl={this.props.signUpCtrl}/>
         }
     }
 }

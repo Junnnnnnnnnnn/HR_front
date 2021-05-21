@@ -1,8 +1,8 @@
 import $ from "jquery"
 
-var AUTH = localStorage.getItem("auth");
-var ACCESS = localStorage.getItem("token");
-var REFRESH = localStorage.getItem("refresh");
+export var AUTH = localStorage.getItem("auth");
+export var ACCESS = localStorage.getItem("token");
+export var REFRESH = localStorage.getItem("refresh");
 export function ajaxAuthPostCon(obj) {
     var reObj = {};
 

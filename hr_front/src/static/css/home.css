@@ -4,3 +4,33 @@
     height: 50px;
     background-color: aqua;
 }
+.root .layout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.root .content{
+    width: 1280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.root .content .signUpForm{
+    width: 1280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content .signUpForm ul{
+    width: 300px;
+}
+.content .signUpForm ul li{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    align-items: center;
+}
+.content .signUpForm ul li input{
+    padding: 10px 2px;
+}
+

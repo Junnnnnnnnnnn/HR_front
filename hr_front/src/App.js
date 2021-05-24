@@ -13,12 +13,9 @@ class App extends Component{
   }
 
   signUpCtrl = (val) =>{
-    console.log("signUpCtrl vla :::: ");
-    console.log(val);
     this.setState({
       ckSignUp: val
     });
-    console.log("setState");
   }
 
   render(){

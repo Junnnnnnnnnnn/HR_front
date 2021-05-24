@@ -19,7 +19,7 @@ class AuthMenu extends Component{
     }
     connAuth = () => {
         var result = commons.ajaxAuthPostCon({
-          url: commons.AUTH + "token",
+          url: "token",
           id: $(".id").val(),
           pass: $(".pass").val(),
         });
@@ -66,6 +66,7 @@ class AuthMenu extends Component{
         });
       }
       signUpCtrl = () => {
+        console.log("회원가입!");
         this.props.signUpCtrl(true);
       }
       componentDidMount(){
@@ -80,10 +81,11 @@ class AuthMenu extends Component{
         console.log("AuthMenu props :::: " + this.props.ckSignUp);
         return(
           <div className="authMenu">
-            <input type="text" className="id" placeholder="id입력"></input>
-            <input type="text" className="pass" placeholder="pass입력"></input>
+            <input type="text" className="id" placeholder="id입력" />
+            <input type="text" className="pass" placeholder="pass입력" />
             <input type="button" className="login" value="로그인" />
-            {this.props.ckSignUp ? null: <input type="button" className="signUp" value="회원가입" />}
+            {/* {this.props.ckSignUp ? null: <input type="button" className="signUp" value="회원가입" />} */}
+            <input type="button" className="signUp" value="회원가입" />
           </div>
         )
       }

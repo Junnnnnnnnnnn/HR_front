@@ -7,7 +7,7 @@ export function ajaxAuthPostCon(obj) {
     var reObj = {};
 
     $.ajax({
-        url: obj.url,
+        url: AUTH + obj.url,
         type: "POST",
         data: obj,
         datatype: "json",
@@ -16,7 +16,7 @@ export function ajaxAuthPostCon(obj) {
             xhr.setRequestHeader("Authorization", "1234");//header추가
         },
         error: function(xhr, status, error){
-            alert("ERROR :::: " + error);
+            alert("ERROR :::: " + status);
         },
         success: function (result) {
             reObj = result;
@@ -28,13 +28,13 @@ export function ajaxAuthPostCon(obj) {
 export function refreshAccessToken(){
     if(ACCESS){
         var result = ajaxAuthPostCon({
-            url: AUTH + "statusToken",
+            url: "statusToken",
             access: ACCESS
         });
         console.log("STATUS :::: " + JSON.stringify(result));
         if(!result.condition){
             result = ajaxAuthPostCon({
-                url: AUTH + "refreshAccessToken",
+                url: "refreshAccessToken",
                 access: ACCESS,
                 refresh: REFRESH
             }); 

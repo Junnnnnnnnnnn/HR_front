@@ -23,7 +23,6 @@ class AuthMenu extends Component{
           id: $(".id").val(),
           pass: $(".pass").val(),
         });
-        console.log(result);
         if(result.condition){
           var _this = this;
           _this.setState({
@@ -34,12 +33,10 @@ class AuthMenu extends Component{
       
           localStorage.setItem("token",_this.state.token);
           localStorage.setItem("refresh",_this.state.refresh);
-          console.log("localStorage ::: " + localStorage.getItem("token"));
-          console.log("state token ::: " + _this.state.token);
-          console.log("state ckLogin ::: " + _this.state.ckLogin);
           this.props.viewChange(true);
+          this.props.signUpCtrl(false);
+          this.props.emailAccessCtrl(false);
         }else{
-          console.log(result);
           var message = "";
           if(result.message.pass || result.message.id){
             // eslint-disable-next-line no-unused-vars
@@ -48,16 +45,14 @@ class AuthMenu extends Component{
             }
             alert(message);
           }else{
-            alert(result.message);  
+            console.log(result);
+            alert(commons.makeJSON(result.message).message);
+            if(commons.makeJSON(result.message).code == "002"){
+              this.emailAccessCtrl();
+            }
           }
         }
       }
-    
-      loginStatus = () => {
-        console.log("state token ::: " + this.state.token);
-        console.log("state ckLogin ::: " + this.state.ckLogin);
-      }
-    
       doLogout = () => {
         localStorage.removeItem("token");
         this.setState({
@@ -66,13 +61,14 @@ class AuthMenu extends Component{
         });
       }
       signUpCtrl = () => {
-        console.log("회원가입!");
         this.props.signUpCtrl(true);
+      }
+      emailAccessCtrl = () => {
+        this.props.emailAccessCtrl(true);
       }
       componentDidMount(){
         $(".login").click(this.connAuth);
         $(".logout").click(this.doLogout);
-        $(".status").click(this.loginStatus);
         $(".signUp").click(this.signUpCtrl);
       }
      
@@ -84,7 +80,6 @@ class AuthMenu extends Component{
             <input type="text" className="id" placeholder="id입력" />
             <input type="text" className="pass" placeholder="pass입력" />
             <input type="button" className="login" value="로그인" />
-            {/* {this.props.ckSignUp ? null: <input type="button" className="signUp" value="회원가입" />} */}
             <input type="button" className="signUp" value="회원가입" />
           </div>
         )

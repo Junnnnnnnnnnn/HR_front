@@ -7,14 +7,34 @@ class SignUp extends Component{
     // eslint-disable-next-line no-useless-constructor
     constructor(props){
         super(props)
+        this.state = {
+            refresh: 0
+        };
     }
     signUpCtrl = () =>{
         this.props.signUpCtrl(false);
     }
+    emailAccessCtrl = () =>{
+        this.props.emailAccessCtrl(true);
+    }
     postData = () =>{
-        // common.ajaxAuthPostCon({
-        //     // url: 
-        // });
+        var result = common.ajaxAuthPostCon({
+            url: "signUp",
+            member_id: $("#member_id").val(),
+            member_name: $("#member_name").val(),
+            member_pass: $("#member_pass").val(),
+            member_phone: $("member_phone").val()
+        });
+        if(result.condition){
+            this.signUpCtrl(false);
+            this.emailAccessCtrl(true);
+        }else{
+            var message = common.makeJSON(result.message);
+            if(message.code == "002"){
+                alert(message.message);
+            }
+        }
+
     }
     componentDidMount(){
         $("#cancel").click(this.signUpCtrl);

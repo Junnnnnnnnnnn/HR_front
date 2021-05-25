@@ -24,7 +24,12 @@ class LoginView extends Component{
         if(localStorage.getItem("token")){
             return <SuccessLoginForm token={this.state.token} viewChange={this.viewChange}/>
         }else{
-            return <AuthMenu token={this.state.token} viewChange={this.viewChange} ckSignUp={this.props.ckSignUp} signUpCtrl={this.props.signUpCtrl}/>
+            return <AuthMenu token={this.state.token} 
+                             viewChange={this.viewChange} 
+                             ckSignUp={this.props.ckSignUp} 
+                             signUpCtrl={this.props.signUpCtrl}
+                             ckEmailAccess={this.props.ckEmailAccess}
+                             emailAccessCtrl={this.props.emailAccessCtrl}/>
         }
     }
 }

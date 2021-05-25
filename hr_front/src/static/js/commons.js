@@ -31,14 +31,12 @@ export function refreshAccessToken(){
             url: "statusToken",
             access: ACCESS
         });
-        console.log("STATUS :::: " + JSON.stringify(result));
         if(!result.condition){
             result = ajaxAuthPostCon({
                 url: "refreshAccessToken",
                 access: ACCESS,
                 refresh: REFRESH
             }); 
-            console.log("refresh :::: " + JSON.stringify(result));
             if(result.condition){
                 localStorage.setItem("token",result.token);
             }else{
@@ -48,4 +46,8 @@ export function refreshAccessToken(){
     }
 
     return localStorage.getItem("token");
+}
+
+export function makeJSON(str){
+    return JSON.parse(str.replaceAll("'","\""))
 }
